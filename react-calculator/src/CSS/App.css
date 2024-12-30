@@ -4,15 +4,17 @@
   margin: 0;
   padding: 0;
   font-size: 1.5rem;
+  color: white;
 }
 
 body{
   background: linear-gradient(rgba(9, 6, 230, 0.733), rgba(84, 105, 199, 0.459));
   font-weight: 700;
+  height: 100%;
 }
 
 .calculator-grid{
-  margin: 2em 0em;
+  margin: 2em;
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(4, 3rem);
@@ -23,9 +25,10 @@ body{
   grid-column: 1/-1;
   background-color: rgba(0, 0, 0, 0.76);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: end;
   justify-content: flex-end;
+  word-wrap: normal;
 }
 
 button{
@@ -37,4 +40,12 @@ button{
 
 .operation{
   color: rgb(245, 22, 6);
+}
+
+.clear{
+  grid-column: span 2;
+}
+
+.equal{
+  grid-column: span 2;
 }

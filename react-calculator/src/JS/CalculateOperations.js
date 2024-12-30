@@ -1,49 +1,93 @@
-import { OPERATIONS , ACTIONS} from "./Enums.js";
+import { OPERATIONS , ACTIONS, STATE} from "./Enums.js";
 
 
-function evaluate(operation, num1, num2){
+function evaluate(state){
+
+  const {prevValue, currentValue, operation} = state;
+
+  if(prevValue === '' || currentValue === '' || currentValue === '') return state;
+
+  let computation;
 
   switch(operation){
 
     case OPERATIONS.add:
-      return num1 + num2;
+      computation = parseFloat(prevValue) + parseFloat(currentValue);
+      break;
     case OPERATIONS.subtract:
-      return num1 - num2;
+      computation = parseFloat(prevValue) - parseFloat(currentValue);
+      break;
     case OPERATIONS.multiply:
-      return num1 * num2;
+      computation = parseFloat(prevValue) * parseFloat(currentValue);
+      break;
     case OPERATIONS.devide:
-      return num1 / num2;
+      computation = currentValue !== '0' ?  parseFloat(prevValue) / parseFloat(currentValue): "Cant't divide by zero";
+      break;
+  }
+
+  return {...state, currentValue: `${computation}`, prevValue:'', operation:'', overide: true};
+
+}
+
+function addDigit(state, digit){
+
+  if(state.currentValue === '0' && digit === '0') return state;
+  if (state.currentValue.includes('.') && digit === '.') return state;
+  
+  if(state.overide){
+    return {
+      ...state,
+      currentValue: `${digit}`,
+      overide: false
+    }
+  }
+
+  return {
+        ...state,
+        currentValue : `${state.currentValue}${digit}`
+      }
+}
+
+function deleteDigit(state){
+
+  if(state.currentValue === null) return state;
+
+  return {
+    ...state,
+    currentValue: state.currentValue.slice(0, -1)
   }
 }
 
+function insertOperator(state, operation){
+
+  return {
+          ...state,
+          prevValue: (state.operation !== '' && state.prevValue !== '' && state.currentValue !== '') 
+                    ? evaluate(state).currentValue : state.currentValue,
+          currentValue: '',
+          operation : operation
+        }
+
+}
 
 export function calculateOperations(state, {type, digit, operation}){
 
   switch(type){
 
-    case ACTIONS.InsertDigit:
-      return {
-        ...state,
-        currentValue : parseFloat(`${state.currentValue}${digit}`)
-      }
+    case ACTIONS.ADD_DIGIT:
+      return addDigit(state, digit);
 
-    case ACTIONS.Operation:
+    case ACTIONS.DEL:
+      return deleteDigit(state);
 
-      if(operation !== OPERATIONS.equal){
-        return {
-          ...state,
-          prevValue: parseFloat(state.currentValue),
-          currentValue: '',
-          operation : operation
-        }
-      }
+    case ACTIONS.EVALUATE:
+      return evaluate(state);
+      
+    case ACTIONS.CHOOSE_OPERATION:
+      return insertOperator(state, operation);
 
-      return  {
-        ...state,
-        currentValue: evaluate(state.operation, state.prevValue, state.currentValue),
-        prevValue: '',
-        operation: ''
-      }
+    case ACTIONS.CLEAR:
+      return {STATE};
 
     default:
       return state;

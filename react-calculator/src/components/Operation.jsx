@@ -1,10 +1,9 @@
 
 import React from 'react'
-import { ACTIONS } from '../JS/Enums.js'
 
-export default function Operation({dispatch, operation}) {
+export default function Operation({dispatch, operation, action, className}) {
   return (
-    <button onClick={()=>dispatch({ type: ACTIONS.Operation, operation: operation})} className='operation'>
+    <button onClick={()=>dispatch({ type: action, operation: operation})} className={`operation ${className}`}>
       {operation}
     </button>
   )

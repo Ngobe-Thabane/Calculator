@@ -3,19 +3,24 @@ export const STATE = {
   displayText: '',
   currentValue : '',
   operation: '',
-  prevValue : ''
+  prevValue : '',
+  overide: false
 }
 
 export const ACTIONS = {
-  InsertDigit: 'Insert Digit',
-  Operation: 'Operation'
+  ADD_DIGIT: 'Insert Digit',
+  CHOOSE_OPERATION: 'Operation',
+  DEL: 'DEL',
+  CLEAR: 'Clear',
+  EVALUATE : '='
 }
 
 export const OPERATIONS = {
   add : '+',
   subtract: '-',
-  multiply: '*',
-  devide : '/',
-  clear : 'AC',
+  multiply: 'x',
+  devide : '÷',
+  clear : 'C',
+  DEl: 'DEL',
   equal: '='
 }
