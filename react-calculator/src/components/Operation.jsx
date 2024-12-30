@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { ACTIONS } from './Calculator'
+import { ACTIONS } from '../JS/Enums.js'
 
 export default function Operation({dispatch, operation}) {
   return (

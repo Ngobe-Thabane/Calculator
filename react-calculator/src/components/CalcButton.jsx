@@ -1,5 +1,5 @@
 import React from 'react'
-import { ACTIONS } from './Calculator.jsx'
+import { ACTIONS } from '../JS/Enums.js'
 
 
 export default function CalcButton({dipatch, digit}) {

@@ -1,5 +1,5 @@
-import './App.css'
-import Calculator from './components/Calculator'
+import '../CSS/App.css'
+import Calculator from './Calculator'
 
 function App() {
   const numbers = [1 ,3, 5]
